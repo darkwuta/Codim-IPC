@@ -1,9 +1,5 @@
 cmake_minimum_required(VERSION 3.2 FATAL_ERROR)
 
-if (NOT APPLE)
-set(CMAKE_C_COMPILER /usr/bin/gcc)
-set(CMAKE_CXX_COMPILER /usr/bin/g++)
-endif()
 project(JGSL CXX)
 
 set(LINEAR_SOLVER "CHOLMOD" CACHE STRING "Direct linear system solver to use (options: EIGEN, CHOLMOD)")
