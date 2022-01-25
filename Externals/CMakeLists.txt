@@ -3,6 +3,9 @@ find_package(Git)
 include(DownloadProject)
 include(ExternalProject)
 
+set(GLUT_INCLUDE_DIR "D:/kpe/kpec_physX/freeglut-3.2.1/include")
+set(OPENGL_LIBRARY_DIR "D:/kpe/kpec_physX/freeglut-3.2.1/build/lib/Release")
+
 find_package(CUDA QUIET)
 if(CUDA_FOUND)
   set(CUDA_NVCC_FLAGS ${CUDA_NVCC_FLAGS};${GENCODE};-lineinfo;--expt-extended-lambda;--expt-relaxed-constexpr;--default-stream per-thread PARENT_SCOPE)
@@ -16,12 +19,14 @@ download_project(
 )
 add_library(amgcl INTERFACE)
 target_include_directories(amgcl SYSTEM INTERFACE ${amgcl_SOURCE_DIR})
+
 if (APPLE)
   find_package(OPENMP REQUIRED)
 else()
-  find_package(OpenMP REQUIRED)
+  find_package(OpenMP )
 endif()
-if (OPENMP_FOUND)
+
+if (OpenMP_FOUND)
   target_compile_options(amgcl INTERFACE ${OpenMP_CXX_FLAGS})
   target_link_libraries(amgcl INTERFACE
           $<$<CXX_COMPILER_ID:GNU>:${OpenMP_CXX_FLAGS}>
